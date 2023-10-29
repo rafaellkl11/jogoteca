@@ -26,8 +26,12 @@
               {% endfor %}
             </tbody>
         </table>
-        <a href="/novo"><button type="submit" class="btn btn-primary btn-novo" href="/novo">Novo Jogo</button></a>
-    </div>
+        <p>
+          {% if 'usuario_nome' in session %}
+          <a href="{{ url_for('novo') }}">Novo</a>
+          {% endif %}
+        </p>
+      </div>
   </body>
 </html>
 {% endblock %}

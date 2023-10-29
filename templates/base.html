@@ -11,18 +11,35 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
   <header class="page-header">
+    <div class="float-end text-end mr-1 text-light">
+      {% if 'usuario_nome' in session %}
+      <form action="{{ url_for('logout') }}" method="post">
+        <div>Olá, {{ session['usuario_nome'] }}!</div>
+        <button class="btn btn-link">Sair</button>
+      </form>
+      {% else %}
+      <div><a href="{{url_for('login') }}">Login</a></div>
+      {% endif %}
+    </div>
     <div class="cabecalho">
       <h1 class="display-2">Jogoteca</h1>
     </div>
   </header>
-  <main class="container">
-    <ul class="nav">
-      <a href="{{ url_for('index') }}" class="nav-link">Início</a>
-    </ul>
+  <main class="container mt-3">
+    <div class="page-header">
+    </div>
+    {% with mensagens = get_flashed_messages() %}
+      {% if mensagens %}
+        <ul class="text-danger">
+          {% for mensagem in mensagens %}
+            <li>{{ mensagem }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
 
     {% block conteudo %}
     {% endblock %}
-    
   </main>
   <footer class="mt-auto bg-light text-muted">
     <section class="p-4 d-flex justify-content-center justify-content-between">
